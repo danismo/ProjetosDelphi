@@ -1,7 +1,7 @@
-// 
+//
 // Created by the DataSnap proxy generator.
-// 24/04/2024 20:51:35
-// 
+// 26/04/2024 00:47:14
+//
 
 unit ufServerClass;
 
@@ -15,6 +15,7 @@ type
     FEchoStringCommand: TDBXCommand;
     FReverseStringCommand: TDBXCommand;
     FTesteCommand: TDBXCommand;
+    FUpdateAbastecerCommand: TDBXCommand;
   public
     constructor Create(ADBXConnection: TDBXConnection); overload;
     constructor Create(ADBXConnection: TDBXConnection; AInstanceOwner: Boolean); overload;
@@ -22,6 +23,7 @@ type
     function EchoString(Value: string): string;
     function ReverseString(Value: string): string;
     function Teste: TJSONValue;
+    function UpdateAbastecer(_AJSON: TJSONValue): TJSONValue;
   end;
 
 implementation
@@ -67,6 +69,20 @@ begin
   Result := TJSONValue(FTesteCommand.Parameters[0].Value.GetJSONValue(FInstanceOwner));
 end;
 
+function TSMServidorClient.UpdateAbastecer(_AJSON: TJSONValue): TJSONValue;
+begin
+  if FUpdateAbastecerCommand = nil then
+  begin
+    FUpdateAbastecerCommand := FDBXConnection.CreateCommand;
+    FUpdateAbastecerCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FUpdateAbastecerCommand.Text := 'TSMServidor.UpdateAbastecer';
+    FUpdateAbastecerCommand.Prepare;
+  end;
+  FUpdateAbastecerCommand.Parameters[0].Value.SetJSONValue(_AJSON, FInstanceOwner);
+  FUpdateAbastecerCommand.ExecuteUpdate;
+  Result := TJSONValue(FUpdateAbastecerCommand.Parameters[1].Value.GetJSONValue(FInstanceOwner));
+end;
+
 
 constructor TSMServidorClient.Create(ADBXConnection: TDBXConnection);
 begin
@@ -85,7 +101,9 @@ begin
   FEchoStringCommand.DisposeOf;
   FReverseStringCommand.DisposeOf;
   FTesteCommand.DisposeOf;
+  FUpdateAbastecerCommand.DisposeOf;
   inherited;
 end;
 
 end.
+

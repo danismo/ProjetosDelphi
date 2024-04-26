@@ -30,9 +30,8 @@ var
 begin
   AAbastecimento := TAbastecimento.Create;
   try
-    AAbastecimento := (_AJSON as TJSONObject).GetValue('jahre').ToString
-
-    Result := TJSONString.Create(_AJSON.ToString);
+    AAbastecimento.ProcessarJSONtoObject(_AJSON);
+    Result := TJSONString.Create(AAbastecimento.ProcessarAbastecimento.ToString);
   finally
     AAbastecimento.Free;
   end;

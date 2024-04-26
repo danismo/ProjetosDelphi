@@ -9,8 +9,14 @@ object DMServidor: TDMServidor
       'User_Name=sysdba'
       'Password=masterkey'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Left = 32
     Top = 16
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection1
+    Left = 88
+    Top = 80
   end
 end
