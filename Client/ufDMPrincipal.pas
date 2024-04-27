@@ -9,10 +9,13 @@ uses
 type
   TDMPrincipal = class(TDataModule)
     SQLConnection1: TSQLConnection;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
-    function GetProxy: TSMServidorClient;
+    procedure SetParamsConnection;
     procedure SetConnected;
+
+    function GetProxy: TSMServidorClient;
   public
     property Proxy: TSMServidorClient read GetProxy;
   end;
@@ -27,6 +30,11 @@ implementation
 {$R *.dfm}
 
 { TDMPrincipal }
+
+procedure TDMPrincipal.DataModuleCreate(Sender: TObject);
+begin
+  SetParamsConnection;
+end;
 
 function TDMPrincipal.GetProxy: TSMServidorClient;
 begin
@@ -43,6 +51,12 @@ begin
     on E:Exception do
       raise Exception.Create('Erro ao conectar: ' + E.Message);
   end;
+end;
+
+procedure TDMPrincipal.SetParamsConnection;
+begin
+  SQLConnection1.Params.LoadFromFile('dsconexao.ini');
+  SQLConnection1.LoginPrompt := False;
 end;
 
 end.

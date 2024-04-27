@@ -1,5 +1,6 @@
 object DMPrincipal: TDMPrincipal
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 254
   Width = 370
   object SQLConnection1: TSQLConnection
