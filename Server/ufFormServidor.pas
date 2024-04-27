@@ -2,9 +2,10 @@ unit ufFormServidor;
 
 interface
 
-uses Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls, Vcl.Samples.Spin, ufSCServidor, Vcl.ExtCtrls;
+  Vcl.StdCtrls, Vcl.Samples.Spin, ufSCServidor, Vcl.ExtCtrls, System.UITypes;
 
 type
   TFormServidor = class(TForm)

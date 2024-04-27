@@ -11,19 +11,17 @@ object FormPrincipal: TFormPrincipal
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
+  object Panel2: TPanel
     Tag = 1
     Left = 185
     Top = 33
     Width = 185
     Height = 271
     Align = alLeft
-    TabOrder = 0
-    ExplicitLeft = 190
+    TabOrder = 1
     object Label4: TLabel
       Left = 93
       Top = 6
@@ -73,34 +71,51 @@ object FormPrincipal: TFormPrincipal
       Height = 13
       Caption = 'Litros'
     end
-    object Button2: TButton
-      Left = 56
-      Top = 224
-      Width = 75
-      Height = 25
-      Caption = 'Abastecer'
-      TabOrder = 0
-      OnClick = Button2Click
+    object Label23: TLabel
+      Left = 37
+      Top = 68
+      Width = 24
+      Height = 13
+      Caption = 'Total'
     end
     object EdtLitrosBomba2: TEdit
       Left = 67
       Top = 38
       Width = 76
       Height = 21
-      TabOrder = 1
+      TabOrder = 0
       Text = '0'
+      OnExit = EdtLitrosBomba2Exit
+      OnKeyPress = EdtLitrosBomba2KeyPress
+    end
+    object EdtTotalBomba2: TEdit
+      Left = 67
+      Top = 65
+      Width = 76
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
       OnKeyPress = EdtKeyPress
     end
+    object Button2: TButton
+      Left = 56
+      Top = 224
+      Width = 75
+      Height = 25
+      Caption = 'Abastecer'
+      TabOrder = 2
+      OnClick = Button2Click
+    end
   end
-  object Panel2: TPanel
+  object Panel1: TPanel
     Tag = 1
     Left = 0
     Top = 33
     Width = 185
     Height = 271
     Align = alLeft
-    TabOrder = 1
-    ExplicitLeft = -5
+    TabOrder = 0
     object Label2: TLabel
       Left = 27
       Top = 6
@@ -150,23 +165,41 @@ object FormPrincipal: TFormPrincipal
       Height = 13
       Caption = 'Litros'
     end
-    object Button1: TButton
-      Left = 55
-      Top = 224
-      Width = 75
-      Height = 25
-      Caption = 'Abastecer'
-      TabOrder = 0
-      OnClick = Button1Click
+    object Label22: TLabel
+      Left = 29
+      Top = 68
+      Width = 24
+      Height = 13
+      Caption = 'Total'
     end
     object EdtLitrosBomba1: TEdit
       Left = 59
       Top = 38
       Width = 76
       Height = 21
-      TabOrder = 1
+      TabOrder = 0
       Text = '0'
+      OnExit = EdtLitrosBomba1Exit
+      OnKeyPress = EdtLitrosBomba1KeyPress
+    end
+    object EdtTotalBomba1: TEdit
+      Left = 59
+      Top = 65
+      Width = 76
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
       OnKeyPress = EdtKeyPress
+    end
+    object Button1: TButton
+      Left = 55
+      Top = 224
+      Width = 75
+      Height = 25
+      Caption = 'Abastecer'
+      TabOrder = 2
+      OnClick = Button1Click
     end
   end
   object Panel3: TPanel
@@ -177,9 +210,6 @@ object FormPrincipal: TFormPrincipal
     Height = 271
     Align = alLeft
     TabOrder = 2
-    ExplicitLeft = 193
-    ExplicitTop = 0
-    ExplicitHeight = 299
     object Label6: TLabel
       Left = 101
       Top = 6
@@ -229,23 +259,42 @@ object FormPrincipal: TFormPrincipal
       Height = 13
       Caption = 'Litros'
     end
+    object Label24: TLabel
+      Left = 37
+      Top = 68
+      Width = 24
+      Height = 13
+      Caption = 'Total'
+    end
+    object EdtLitrosBomba3: TEdit
+      Tag = 1
+      Left = 67
+      Top = 38
+      Width = 76
+      Height = 21
+      TabOrder = 0
+      Text = '0'
+      OnExit = EdtLitrosBomba3Exit
+      OnKeyPress = EdtLitrosBomba3KeyPress
+    end
+    object EdtTotalBomba3: TEdit
+      Left = 67
+      Top = 65
+      Width = 76
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
+      OnKeyPress = EdtKeyPress
+    end
     object Button3: TButton
       Left = 56
       Top = 224
       Width = 75
       Height = 25
       Caption = 'Abastecer'
-      TabOrder = 0
+      TabOrder = 2
       OnClick = Button3Click
-    end
-    object EdtLitrosBomba3: TEdit
-      Left = 67
-      Top = 38
-      Width = 76
-      Height = 21
-      TabOrder = 1
-      Text = '0'
-      OnKeyPress = EdtKeyPress
     end
   end
   object Panel4: TPanel
@@ -256,8 +305,6 @@ object FormPrincipal: TFormPrincipal
     Height = 271
     Align = alLeft
     TabOrder = 3
-    ExplicitLeft = 560
-    ExplicitTop = 27
     object Label8: TLabel
       Left = 96
       Top = 6
@@ -307,23 +354,42 @@ object FormPrincipal: TFormPrincipal
       Height = 13
       Caption = 'Litros'
     end
+    object Label25: TLabel
+      Left = 37
+      Top = 68
+      Width = 24
+      Height = 13
+      Caption = 'Total'
+    end
+    object EdtLitrosBomba4: TEdit
+      Tag = 1
+      Left = 67
+      Top = 38
+      Width = 76
+      Height = 21
+      TabOrder = 0
+      Text = '0'
+      OnExit = EdtLitrosBomba4Exit
+      OnKeyPress = EdtLitrosBomba4KeyPress
+    end
+    object EdtTotalBomba4: TEdit
+      Left = 67
+      Top = 65
+      Width = 76
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
+      OnKeyPress = EdtKeyPress
+    end
     object Button4: TButton
       Left = 53
       Top = 224
       Width = 75
       Height = 25
       Caption = 'Abastecer'
-      TabOrder = 0
+      TabOrder = 2
       OnClick = Button4Click
-    end
-    object EdtLitrosBomba4: TEdit
-      Left = 67
-      Top = 38
-      Width = 76
-      Height = 21
-      TabOrder = 1
-      Text = '0'
-      OnKeyPress = EdtKeyPress
     end
   end
   object Panel5: TPanel
@@ -333,7 +399,6 @@ object FormPrincipal: TFormPrincipal
     Height = 33
     Align = alTop
     TabOrder = 4
-    ExplicitWidth = 725
     object Label1: TLabel
       Left = 27
       Top = 10
@@ -369,10 +434,17 @@ object FormPrincipal: TFormPrincipal
       Height = 13
       Caption = '(lt)'
     end
+    object Label26: TLabel
+      Left = 134
+      Top = 10
+      Width = 11
+      Height = 13
+      Caption = '%'
+    end
     object EdtAliquota: TEdit
       Left = 72
       Top = 6
-      Width = 76
+      Width = 58
       Height = 21
       TabOrder = 0
       Text = '13'
@@ -384,7 +456,7 @@ object FormPrincipal: TFormPrincipal
       Width = 76
       Height = 21
       TabOrder = 1
-      Text = '5.66'
+      Text = '5,66'
       OnKeyPress = EdtKeyPress
     end
     object EdtPrecoDiesel: TEdit
@@ -393,7 +465,7 @@ object FormPrincipal: TFormPrincipal
       Width = 76
       Height = 21
       TabOrder = 2
-      Text = '5.30'
+      Text = '5,30'
       OnKeyPress = EdtKeyPress
     end
   end
@@ -404,6 +476,5 @@ object FormPrincipal: TFormPrincipal
     Height = 45
     Align = alBottom
     TabOrder = 5
-    ExplicitWidth = 725
   end
 end
