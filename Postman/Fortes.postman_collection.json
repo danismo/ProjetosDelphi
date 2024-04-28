@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "227aa01d-9744-4ed8-8eec-b52c2e814a1b",
+		"name": "Fortes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4814836"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/datasnap/rest/TSMServidor/Abastecer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n  \"Bomba\": 1,\r\n  \"Tanque\": 1,\r\n  \"Litros\": 1.34,\r\n  \"ValorLitro\": 5.60,  \r\n  \"Aliquota\": 13,\r\n  \"DataAbastecimento\": \"2024-04-25T22:53:31\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/datasnap/rest/TSMServidor/Abastecer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"datasnap",
+						"rest",
+						"TSMServidor",
+						"Abastecer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
