@@ -4,9 +4,23 @@ interface
 
 uses
   FireDAC.Comp.Client, Bde.DBTables, System.JSON, FireDAC.Stan.Def, FireDAC.Phys.FB,
-  FireDAC.DApt, FireDAC.Stan.Async;
+  FireDAC.DApt, FireDAC.Stan.Async, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP, REST.JSON;
 
 type
+  TMetodosREST = class
+  private
+    FUrl: String;
+    procedure SetParametersHTTP(_AIdHTTP: TIdHTTP);
+    procedure SetUrl(_AUrl: String);
+    function GetUrl: String;
+  public
+    property Url: String read GetUrl write SetUrl;
+
+    constructor Create(_AUrl: String);
+    function Post(_AJSONObject: TJSONObject): String;
+  end;
+
   TAbastecimentoEnvio = class
   private
     FBomba: Integer;
@@ -89,7 +103,7 @@ type
 implementation
 
 uses
-  System.SysUtils, DateUtils, Math;
+  System.SysUtils, DateUtils, Math, System.Classes;
 
 procedure CalcularTotais(var _ATotais: TTotais);
 var
@@ -246,6 +260,57 @@ begin
   FDConnection.Params.LoadFromFile('dbconexao.ini');
   FDConnection.LoginPrompt := False;
   FDConnection.Connected := True;
+end;
+
+{ TMetodosREST }
+
+constructor TMetodosREST.Create(_AUrl: String);
+begin
+  Url := _AUrl;
+end;
+
+function TMetodosREST.GetUrl: String;
+begin
+  Result := FUrl;
+end;
+
+function TMetodosREST.Post(_AJSONObject: TJSONObject): String;
+var
+  AJSONEnvio: TStream;
+  FIdHTTP: TIdHTTP;
+begin
+  FIdHTTP := TIdHTTP.Create(nil);
+  try
+    SetParametersHTTP(FIdHTTP);
+
+    AJSONEnvio := TStringStream.Create(_AJSONObject.ToString);
+    try
+      AJSONEnvio.Position := 0;
+      try
+        Result := FIdHTTP.Post(Url, AJSONEnvio);
+      except
+        on E: Exception do
+          raise Exception.Create('Erro ao enviar JSON: ' + E.Message);
+      end;
+    finally
+      AJSONEnvio.Free;
+    end;
+  finally
+    FIdHTTP.Free;
+  end;
+end;
+
+procedure TMetodosREST.SetParametersHTTP(_AIdHTTP: TIdHTTP);
+begin
+  _AIdHTTP.Request.UserAgent:= 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36';
+  _AIdHTTP.Request.Accept := 'application/json, text/javascript, */*; q=0.01';
+  _AIdHTTP.Request.ContentType := 'application/x-www-form-urlencoded; charset=UTF-8';
+  _AIdHTTP.Request.CharSet := 'utf-8';
+end;
+
+procedure TMetodosREST.SetUrl(_AUrl: String);
+begin
+  FUrl := _AUrl;
 end;
 
 end.

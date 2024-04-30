@@ -51,7 +51,7 @@ object FormPrincipal: TFormPrincipal
     object Label11: TLabel
       Left = 1
       Top = 255
-      Width = 183
+      Width = 63
       Height = 15
       Align = alBottom
       Alignment = taCenter
@@ -62,7 +62,6 @@ object FormPrincipal: TFormPrincipal
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 63
     end
     object Label19: TLabel
       Left = 35
@@ -145,7 +144,7 @@ object FormPrincipal: TFormPrincipal
     object Label10: TLabel
       Left = 1
       Top = 255
-      Width = 183
+      Width = 63
       Height = 15
       Align = alBottom
       Alignment = taCenter
@@ -156,7 +155,6 @@ object FormPrincipal: TFormPrincipal
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 63
     end
     object Label14: TLabel
       Left = 27
@@ -239,7 +237,7 @@ object FormPrincipal: TFormPrincipal
     object Label12: TLabel
       Left = 1
       Top = 255
-      Width = 183
+      Width = 43
       Height = 15
       Align = alBottom
       Alignment = taCenter
@@ -250,7 +248,6 @@ object FormPrincipal: TFormPrincipal
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 43
     end
     object Label20: TLabel
       Left = 35
@@ -334,7 +331,7 @@ object FormPrincipal: TFormPrincipal
     object Label13: TLabel
       Left = 1
       Top = 255
-      Width = 179
+      Width = 43
       Height = 15
       Align = alBottom
       Alignment = taCenter
@@ -345,7 +342,6 @@ object FormPrincipal: TFormPrincipal
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 43
     end
     object Label21: TLabel
       Left = 35

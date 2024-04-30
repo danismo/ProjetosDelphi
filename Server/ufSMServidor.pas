@@ -12,9 +12,6 @@ type
   private
     { Private declarations }
   public
-    function EchoString(Value: string): string;
-    function ReverseString(Value: string): string;
-    function Teste: TJSONValue;
     function UpdateAbastecer(_AJSON: TJSONValue): TJSONValue;
   end;
 {$METHODINFO OFF}
@@ -35,21 +32,6 @@ begin
   finally
     AAbastecimento.Free;
   end;
-end;
-
-function TSMServidor.EchoString(Value: string): string;
-begin
-  Result := Value;
-end;
-
-function TSMServidor.ReverseString(Value: string): string;
-begin
-  Result := System.StrUtils.ReverseString(Value);
-end;
-
-function TSMServidor.Teste: TJSONValue;
-begin
-  Result := TJSONString.Create(DateTimeToStr(Now));
 end;
 
 end.

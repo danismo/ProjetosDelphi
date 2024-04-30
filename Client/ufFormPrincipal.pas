@@ -3,9 +3,9 @@ unit ufFormPrincipal;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ufDMPrincipal, ufServerClass,
-  Vcl.ExtCtrls, System.JSON, REST.JSON, System.UITypes;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  System.JSON, REST.JSON, System.UITypes;
 
 type
   TipoCombustivel = (tcGasolina, tcDiesel);
@@ -78,7 +78,7 @@ type
     function ValidarLitros(_AValue: String): Currency;
     procedure LimparCampos(_AEdit1, _AEdit2: TEdit);
     procedure Abastecer(_ABomba, _ATanque: Integer; _ALitros: Currency; _ATipoCombustivel: TipoCombustivel);
-    procedure TratarRetorno(_ARetorno: String);
+    procedure TratarRetornoAbastecimento(_ARetorno: String);
   end;
 
 var
@@ -93,40 +93,38 @@ uses
 
 procedure TFormPrincipal.Abastecer(_ABomba, _ATanque: Integer; _ALitros: Currency; _ATipoCombustivel: TipoCombustivel);
 var
-  ADMPrincipal: TDMPrincipal;
-  AProxy: TSMServidorClient;
+  AMetodosREST: TMetodosREST;
   AAbastecimentoEnvio: TAbastecimentoEnvio;
   AJSONObject: TJSONObject;
-  ARetorno: String;
-
+  ARetorno, AUrl: String;
 begin
-  ADMPrincipal := TDMPrincipal.Create(Self);
+  AUrl := 'http://localhost:8081/datasnap/rest/TSMServidor/Abastecer';
+  AMetodosREST := TMetodosREST.Create(AUrl);
   try
-    AProxy := ADMPrincipal.Proxy;
+    AAbastecimentoEnvio := TAbastecimentoEnvio.Create;
     try
-      AAbastecimentoEnvio := TAbastecimentoEnvio.Create;
+      AAbastecimentoEnvio.Bomba := _ABomba;
+      AAbastecimentoEnvio.Tanque := _ATanque;
+      AAbastecimentoEnvio.Litros := _ALitros;
+      if _ATipoCombustivel = tcGasolina then
+        AAbastecimentoEnvio.ValorLitro := StrToCurrDef(EdtPrecoGasolina.Text,0)
+      else
+        AAbastecimentoEnvio.ValorLitro := StrToCurrDef(EdtPrecoDiesel.Text,0);
+      AAbastecimentoEnvio.Aliquota := StrToCurrDef(EdtAliquota.Text,0);
+      AAbastecimentoEnvio.DataAbastecimento := now;
+      AJSONObject := TJSON.ObjectToJSONObject(AAbastecimentoEnvio);
       try
-        AAbastecimentoEnvio.Bomba := _ABomba;
-        AAbastecimentoEnvio.Tanque := _ATanque;
-        AAbastecimentoEnvio.Litros := _ALitros;
-        if _ATipoCombustivel = tcGasolina then
-          AAbastecimentoEnvio.ValorLitro := StrToCurrDef(EdtPrecoGasolina.Text,0)
-        else
-          AAbastecimentoEnvio.ValorLitro := StrToCurrDef(EdtPrecoDiesel.Text,0);
-        AAbastecimentoEnvio.Aliquota := StrToCurrDef(EdtAliquota.Text,0);
-        AAbastecimentoEnvio.DataAbastecimento := now;
-        AJSONObject := TJSON.ObjectToJsonObject(AAbastecimentoEnvio);
-        ARetorno := AProxy.UpdateAbastecer(AJSONObject).ToString;
+        ARetorno := AMetodosREST.Post(AJSONObject);
       finally
-        AAbastecimentoEnvio.Free;
+        AJSONObject.Free;
       end;
     finally
-      AProxy.Free;
+      AAbastecimentoEnvio.Free;
     end;
   finally
-    ADMPrincipal.Free;
+    AMetodosREST.Free;
   end;
-  TratarRetorno(ARetorno);
+  TratarRetornoAbastecimento(ARetorno);
 end;
 
 procedure TFormPrincipal.Button1Click(Sender: TObject);
@@ -254,15 +252,24 @@ begin
     Result := _AKey;
 end;
 
-procedure TFormPrincipal.TratarRetorno(_ARetorno: String);
+procedure TFormPrincipal.TratarRetornoAbastecimento(_ARetorno: String);
 var
-  ARetorno: String;
+  AResult: String;
+  AJSONObject: TJSONObject;
 begin
-  ARetorno := _ARetorno.Replace('"','');
-  if StrToCurrDef(ARetorno, 0) > 0 then
-    MessageDlg('Abastecimento concluído', mtInformation, [], 0)
-  else
-    MessageDlg('Erro ao abastecer', mtError, [], 0);
+  AJSONObject := TJSONObject.ParseJSONValue(_ARetorno) as TJSONObject;
+  try
+    AResult := AJSONObject.GetValue('result').ToString.Replace('[','');
+    AResult := AResult.Replace(']','');
+    AResult := AResult.Replace('"','');
+
+    if StrToCurrDef(AResult, 0) > 0 then
+      MessageDlg('Abastecimento concluído', mtInformation, [], 0)
+    else
+      MessageDlg('Erro ao abastecer', mtError, [], 0);
+  finally
+    AJSONObject.Free;
+  end;
 end;
 
 function TFormPrincipal.ValidarLitros(_AValue: String): Currency;
