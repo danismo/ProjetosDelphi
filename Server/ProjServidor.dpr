@@ -7,7 +7,9 @@ uses
   ufFormServidor in 'ufFormServidor.pas' {FormServidor},
   ufSMServidor in 'ufSMServidor.pas',
   ufSCServidor in 'ufSCServidor.pas' {SCServidor: TDataModule},
-  uClassPosto in '..\Comum\uClassPosto.pas';
+  uClassPosto in '..\Comum\uClassPosto.pas',
+  uClassBase in '..\Comum\uClassBase.pas',
+  uClassReport in '..\Comum\uClassReport.pas';
 
 {$R *.res}
 

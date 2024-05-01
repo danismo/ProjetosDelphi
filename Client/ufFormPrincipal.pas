@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  System.JSON, REST.JSON, System.UITypes;
+  System.JSON, REST.JSON, System.UITypes, ufFormReport, uClassBase;
 
 type
   TipoCombustivel = (tcGasolina, tcDiesel);
@@ -58,6 +58,7 @@ type
     Button3: TButton;
     Button4: TButton;
     Label26: TLabel;
+    Button5: TButton;
 
     procedure EdtKeyPress(Sender: TObject; var Key: Char);
     procedure Button1Click(Sender: TObject);
@@ -72,6 +73,7 @@ type
     procedure EdtLitrosBomba2Exit(Sender: TObject);
     procedure EdtLitrosBomba3Exit(Sender: TObject);
     procedure EdtLitrosBomba4Exit(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     function OnlyNumeric(Sender: TObject; _AKey: Char): Char;
     function CacularValor(_AValue: Currency; _ATipoCombustivel: TipoCombustivel): Currency;
@@ -149,6 +151,19 @@ procedure TFormPrincipal.Button4Click(Sender: TObject);
 begin
   Abastecer(4, 2, ValidarLitros(EdtLitrosBomba4.Text), tcDiesel);
   LimparCampos(EdtLitrosBomba4, EdtTotalBomba4);
+end;
+
+procedure TFormPrincipal.Button5Click(Sender: TObject);
+var
+  AFormReport: TFormReport;
+begin
+  AFormReport := TFormReport.Create(Self);
+  try
+    if AFormReport.FDTable.RecordCount > 0 then
+      AFormReport.RLReport1.Preview;
+  finally
+    AFormReport.Free;
+  end;
 end;
 
 function TFormPrincipal.CacularValor(_AValue: Currency; _ATipoCombustivel: TipoCombustivel): Currency;

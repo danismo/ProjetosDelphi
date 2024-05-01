@@ -472,5 +472,14 @@ object FormPrincipal: TFormPrincipal
     Height = 45
     Align = alBottom
     TabOrder = 5
+    object Button5: TButton
+      Left = 16
+      Top = 11
+      Width = 75
+      Height = 25
+      Caption = 'Relat'#243'rio'
+      TabOrder = 0
+      OnClick = Button5Click
+    end
   end
 end

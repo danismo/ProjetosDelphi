@@ -3,7 +3,11 @@ program ProjClient;
 uses
   Vcl.Forms,
   ufFormPrincipal in 'ufFormPrincipal.pas' {FormPrincipal},
-  uClassPosto in '..\Comum\uClassPosto.pas';
+  uClassPosto in '..\Comum\uClassPosto.pas',
+  ufFormReport in 'ufFormReport.pas' {FormReport},
+  uClassBase in '..\Comum\uClassBase.pas',
+  ufFormReportFiltros in 'ufFormReportFiltros.pas' {FormReportFiltros},
+  uClassReport in '..\Comum\uClassReport.pas';
 
 {$R *.res}
 

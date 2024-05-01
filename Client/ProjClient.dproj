@@ -91,6 +91,16 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Comum\uClassPosto.pas"/>
+        <DCCReference Include="ufFormReport.pas">
+            <Form>FormReport</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Comum\uClassBase.pas"/>
+        <DCCReference Include="ufFormReportFiltros.pas">
+            <Form>FormReportFiltros</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Comum\uClassReport.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
